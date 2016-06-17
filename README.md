@@ -1,4 +1,4 @@
-# Project-Icicle
+# Icicle: The Sentence
 This algorithm creates a sentence that tells users what they should wear and bring for the day's weather, along with a summary of the forecast.
 
 It uses a custom formula to assigned weighted values to clothing items, providing a general reccomendation for items to wear and bring for the entire time range.
@@ -15,8 +15,6 @@ It uses a custom formula to assigned weighted values to clothing items, providin
   - In the Menu bar, click View -> Debug Area -> Show Debug Area
   - Drag up on the bottom bar next to the play icon.
 
-The Sentence will appear below dumb error messages (don't worry, they're normal) and some forecast data.
-
-Enjoy ensuing weather preparedness!
+The Sentence will appear below some calculations. Enjoy ensuing weather preparedness!
 
 
