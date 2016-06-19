@@ -51,7 +51,7 @@ public struct Personality {
      Must end with "wear your" */
     public let wearHot: [String] =
         ["Phew, it's hot! Stay cool and wear your",
-         "Whew, it's hot! Get a cold drink and wear your",
+         "Whew, it's hot! Grab a cold drink and wear your",
          "Make sure you fry an egg on the sidewalk and wear your",
          "It's so darn hot that milk is a bad choice. You should wear your"
     ]

@@ -6,7 +6,8 @@
 // Copyright © 2016 Matt Barker. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import CoreLocation
 
 /**
  Create a sentence that greets the user, tells them what they should wear or bring for the day's weather
@@ -98,10 +99,6 @@ public func theSentence(items: [Item], forecast: Forecast, range: (Date, Date), 
     let rand2 = Int(arc4random_uniform(UInt32(arr2.count)))
     //introduce line variable (subject to change based on null) for body2
     var line = ", plus \(arr2[rand2])"
-    //trick grammar function to transition to body2 more smoothly
-    if bringResultZero.count > 0 && calculateTupleZero.count >= 3 {
-        calculateTupleZero.append(Item(""))
-    }
     
     //parse items into readable sentences, finalize punctuation depending on null
     let body1 = grammar(calculateTupleZero, line: (rainBody == "") ? arr1[rand1] : "You should wear your", conjunction: "and")
@@ -114,7 +111,7 @@ public func theSentence(items: [Item], forecast: Forecast, range: (Date, Date), 
     if let string = forecast.daily?.data?.first?.summary {
         //let char =  string.substring(to: string.startIndex.advancedBy(n: 1)).lowercaseString
         let char = "\(string.characters.first!)".lowercased()
-        weatherSummary = "The forecast for \(timeOfDay.0) is " + char +
+        weatherSummary = "The forecast\(((timeOfDay.0 == "tomorrow") ? " for tomorrow" : "")) is " + char +
             string.substring(from: string.index(string.startIndex, offsetBy: 1))
         // + string.substringFromIndex(string.startIndex.advancedBy(1))
         if temp { //calculate high and low temprature for entire day (will do next day if appropriate)
