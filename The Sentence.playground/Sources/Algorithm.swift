@@ -1,4 +1,4 @@
-// 
+//
 // Algorithm.swift
 // Project Icicle
 //
@@ -26,7 +26,7 @@ import CoreLocation
  - returns: The Sentence
  */
 public func theSentence(items: [Item], forecast: Forecast, range: (Date, Date), temp: Bool = false,
-                 constants: ((Float, Float), Int, (Float, Float, Float))) -> String {
+                        constants: ((Float, Float), Int, (Float, Float, Float))) -> String {
     
     let cal = Calendar.current()
     var startTime = range.0; var endTime = range.1
@@ -57,11 +57,11 @@ public func theSentence(items: [Item], forecast: Forecast, range: (Date, Date), 
     //print("\nrangeTemp: [40, 45, 50, 55, 60, 65, 70, 75, 65, 55, 45]\n")
     
     //calculate appropriate greeting for time of day
-    //Morning: 3AM - 11:59AM, Afternoon: 12PM - 4:59PM, Evening: 5PM - 2:59AM
+    //Morning: 12AM - 11:59AM, Afternoon: 12PM - 4:59PM, Evening: 5PM - 11:59PM
     var greeting = "Good morning! "
     let currentHour = Calendar.current().components([.hour, .minute], from: Date()).hour
     if currentHour >= 12 && currentHour < 17 { greeting = "Good afternoon! " }
-    if currentHour >= 17 || (0 <= currentHour && currentHour < 3) { greeting = "Good evening! " }
+    if currentHour >= 17 { greeting = "Good evening! " }
     
     //personality (arr1 is wear, arr2 is bring)
     var arr1 = (timeOfDay.0 == "today") ? Personality().wearToday : Personality().wearTomorrow
@@ -101,7 +101,8 @@ public func theSentence(items: [Item], forecast: Forecast, range: (Date, Date), 
     var line = ", plus \(arr2[rand2])"
     
     //parse items into readable sentences, finalize punctuation depending on null
-    let body1 = grammar(calculateTupleZero, line: (rainBody == "") ? arr1[rand1] : "You should wear your", conjunction: "and")
+    let body1 = grammar(calculateTupleZero, line: (rainBody == "") ? arr1[rand1] :
+        "\((timeOfDay.1 == "Tomorrow") ? timeOfDay.1 + ", you" : "You") should wear your", conjunction: "and")
     if body1 == "" { line = "You should \(arr2[rand2])" }
     var body2 = grammar(bringResultZero, line: line, conjunction: "and") + ". "
     if body1 == "" && body2 == ". " { body2 = "" }
@@ -109,14 +110,11 @@ public func theSentence(items: [Item], forecast: Forecast, range: (Date, Date), 
     //create and format weatherSummary
     var weatherSummary: String = ""
     if let string = forecast.daily?.data?.first?.summary {
-        //let char =  string.substring(to: string.startIndex.advancedBy(n: 1)).lowercaseString
         let char = "\(string.characters.first!)".lowercased()
         weatherSummary = "The forecast\(((timeOfDay.0 == "tomorrow") ? " for tomorrow" : "")) is " + char +
             string.substring(from: string.index(string.startIndex, offsetBy: 1))
-        // + string.substringFromIndex(string.startIndex.advancedBy(1))
         if temp { //calculate high and low temprature for entire day (will do next day if appropriate)
             weatherSummary.remove(at: weatherSummary.index(before: weatherSummary.endIndex))
-            //weatherSummary = weatherSummary.substring(to: weatherSummary.endIndex.advancedBy(n: -1))
             let day = (timeOfDay.0 == "tomorrow") ? forecast.daily!.data![1] : forecast.daily!.data![0]
             let high = (forecast.flags?.feelsLike == true) ? day.apparentTemperatureMax! : day.temperatureMax!
             let low = (forecast.flags?.feelsLike == true) ? day.apparentTemperatureMin! : day.temperatureMin!
@@ -125,7 +123,22 @@ public func theSentence(items: [Item], forecast: Forecast, range: (Date, Date), 
         }
     } else { print("\nerror: forecast.daily.data.first isn't behaving\n") }
     
-    return greeting + rainBody + body1 + body2 + weatherSummary
+    //emojis!
+    let day = (timeOfDay.0 == "tomorrow") ? forecast.daily!.data![1] : forecast.daily!.data![0]
+    let emojiArray = emojiPicker(day.icon!.rawValue)
+    var rand: Int = Int(arc4random_uniform(UInt32(emojiArray.count)))
+    
+    //change cloud emoji based on amount of cloudiness
+    if day.icon!.rawValue.contains("partly") {
+        switch day.cloudCover {
+        case let x where x < 0.17 : rand = 0
+        case let x where x < 0.34 : rand = 1
+        default : rand = 2 }
+    }
+    
+    let emoji = " \(emojiArray[rand])"
+    
+    return greeting + rainBody + body1 + body2 + weatherSummary + emoji
 }
 
 
@@ -377,16 +390,16 @@ public func timeInitializer(start: (Int, Int), end: (Int, Int)) -> (Date, Date) 
         endTime = cal.date(byAdding: .hour, value: 1, to: endTime!, options: Calendar.Options())
     }
     startTime = cal.date(bySettingHour: cal.component(.hour, from: startTime!), minute: 00,
-                                      second: 00, of: Date(), options: Calendar.Options())
+                         second: 00, of: Date(), options: Calendar.Options())
     endTime = cal.date(bySettingHour: cal.component(.hour, from: endTime!), minute: 00,
-                                    second: 00, of: Date(), options: Calendar.Options())
+                       second: 00, of: Date(), options: Calendar.Options())
     
     //change day to next day if endTime goes to next day (causes same time to make entire next day the range)
     if endTime!.compare(startTime!) != .orderedDescending {
         endTime = cal.date(bySettingHour: cal.component(.hour, from: endTime!), minute: 00,
-                                        second: 00, of: cal.date(byAdding: .day, value: 1,
-                                            to: Date(), options: Calendar.Options())!,
-                                        options: Calendar.Options())
+                           second: 00, of: cal.date(byAdding: .day, value: 1,
+                                                    to: Date(), options: Calendar.Options())!,
+                           options: Calendar.Options())
     }
     
     return (startTime!, endTime!)

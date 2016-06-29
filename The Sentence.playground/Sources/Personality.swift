@@ -93,3 +93,21 @@ public struct Personality {
     public init() { }
     
 }
+
+public func emojiPicker(_ string: String) -> [String] {
+    
+    switch string {
+    case "clear-day" : return ["☀️","🏙","😎","🌈","🎢"]
+    case "clear-night" : return ["🌃","🌌","🌠","🌙","✨"]
+    case "partly-cloudy-day", "partly-cloudy-night" : return ["🌤","⛅️","🌥"] //cloud coverage
+    case "cloudy" : return ["☁️"]
+    case "rain" : return ["☂️","☔️","🌧","💧"]
+    case "wind" : return ["🌀","🌪","🌬","🍃"]
+    case "fog" : return ["🌫"]
+    case "snow", "sleet" : return ["❄️","🌨","☃️","⛄️"]
+    case "hot" : return ["🌡","🔥","😎","🕶","👙","🌋","🏜"]
+    case "cold" : return ["☃️","⛄️","⛷","🏂"]
+    default : print("emojis not found ☹️"); return [] }
+    
+}
+
