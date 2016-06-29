@@ -5,7 +5,9 @@ It uses a custom formula to assigned weighted values to clothing items, providin
 
 ## Instructions 
 
-NOTE (6/29/16): As of now, this will only run in Xcode 8 (currently in beta), which required an Apple Developer account to download. Sorry :/
+### Note 
+
+6/29/16 - As of now, this will only run in Xcode 8 (currently in beta), which required an Apple Developer account to download. Sorry :/
 
 1. First, download [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12) if you don't have it installed. 
 2. Next, click the green download button on this page, and then click Download ZIP.
