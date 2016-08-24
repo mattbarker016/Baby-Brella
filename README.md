@@ -1,4 +1,4 @@
-# Icicle: The Sentence
+# Project Icicle: The Sentence
 This algorithm creates a sentence that tells users what they should wear and bring for the day's weather, along with a summary of the forecast.
 
 It uses a custom formula to assigned weighted values to clothing items, providing a general reccomendation for items to wear and bring for the entire time range.
