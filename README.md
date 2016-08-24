@@ -1,7 +1,14 @@
 # Project Icicle: The Sentence
-This algorithm creates a sentence that tells users what they should wear and bring for the day's weather, along with a summary of the forecast.
 
-It uses a custom formula to assigned weighted values to clothing items, providing a general reccomendation for items to wear and bring for the entire time range.
+## Update
+
+This project is now the brains of a new weather app called Brella – Your Personalized Weather Forecast! We are launching on the App Store next month. Please check out our work [here](https://github.com/AAAstorga/Brella)
+
+This page is NOT the latest version. Please see the above link to experience the latest and greatest in personalized weather forecasts.
+
+## Overview
+
+This algorithm creates a sentence that tells users what they should wear and bring for the day's weather, along with a summary of the forecast. It uses a custom formula to assigned weighted values to clothing items, providing a general reccomendation for items to wear and bring for the entire time range.
 
 ## Instructions 
 
