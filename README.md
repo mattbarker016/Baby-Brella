@@ -2,7 +2,7 @@
 
 ## Update
 
-This project is now the brains of a new weather app called Brella – Your Personalized Weather Forecast! We are launching on the App Store next month. Please check out our work [here](https://github.com/AAAstorga/Brella)
+This project is now the brains of a new weather app called Brella – Your Personalized Weather Forecast, now available on the [App Store](https://appsto.re/us/ykcxfb.i). Please check out our work [here](https://github.com/AAAstorga/Brella)
 
 This page is NOT the latest version. Please see the above link to experience the latest and greatest in personalized weather forecasts.
 
