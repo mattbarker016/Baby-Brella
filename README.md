@@ -1,6 +1,6 @@
 # Project Icicle: The Sentence
 
-## Update
+## *Update*
 
 This project is now the brains of a new weather app called Brella – Your Personalized Weather Forecast, now available on the [App Store](https://appsto.re/us/ykcxfb.i). Please check out our work [here](https://github.com/AAAstorga/Brella)
 
